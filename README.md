@@ -1,5 +1,7 @@
 # LocalBolt
 
+**[localbolt.site](https://localbolt.site)** — use it now, no install needed.
+
 Encrypted peer-to-peer file transfer. Files go directly between devices — never stored on any server.
 
 - **End-to-end encrypted** — NaCl/Curve25519 (same crypto as Signal and WireGuard)
@@ -81,4 +83,4 @@ The signaling server only helps devices find each other and set up the WebRTC co
 
 ## License
 
-MIT
+MIT — built by [the9ines](https://the9ines.com)

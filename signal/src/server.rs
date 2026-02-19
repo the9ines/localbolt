@@ -51,11 +51,20 @@ pub async fn handle_connection(
     };
 
     // Determine the effective client IP.
-    let client_ip = forwarded_for
+    let raw_ip = forwarded_for
         .lock()
         .ok()
         .and_then(|guard| guard.clone())
         .unwrap_or_else(|| addr.ip().to_string());
+
+    // For self-hosted mode: all private/loopback IPs share one room ("local").
+    // This lets devices on the same LAN discover each other even when the host
+    // machine connects via 127.0.0.1 and others via 192.168.x.x.
+    let client_ip = if is_private_ip(&raw_ip) {
+        "local".to_string()
+    } else {
+        raw_ip
+    };
 
     debug!(addr = %addr, client_ip = %client_ip, "WebSocket connection established");
 
@@ -225,4 +234,23 @@ pub async fn handle_connection(
     info!(peer_code = %peer_code, client_ip = %client_ip, "peer disconnected");
     room_manager.remove_peer(&client_ip, &peer_code);
     write_task.abort();
+}
+
+/// Check if an IP address is private (RFC 1918), loopback, or link-local.
+fn is_private_ip(ip: &str) -> bool {
+    ip == "127.0.0.1"
+        || ip == "::1"
+        || ip.starts_with("10.")
+        || ip.starts_with("192.168.")
+        || ip.starts_with("172.16.")
+        || ip.starts_with("172.17.")
+        || ip.starts_with("172.18.")
+        || ip.starts_with("172.19.")
+        || ip.starts_with("172.2")
+        || ip.starts_with("172.30.")
+        || ip.starts_with("172.31.")
+        || ip.starts_with("169.254.")
+        || ip.starts_with("fc")
+        || ip.starts_with("fd")
+        || ip.starts_with("fe80")
 }

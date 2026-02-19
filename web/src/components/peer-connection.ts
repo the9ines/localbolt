@@ -244,7 +244,7 @@ export function createPeerConnection(): HTMLElement {
   store.setState({ peerCode });
   console.log('[WEBRTC] Peer code:', peerCode);
 
-  const wsUrl = import.meta.env.VITE_SIGNAL_URL || 'ws://localhost:3001';
+  const wsUrl = import.meta.env.VITE_SIGNAL_URL || `ws://${window.location.hostname}:3001`;
   const signaling = new WebSocketSignaling(wsUrl);
   signalingRef = signaling;
 

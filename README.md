@@ -1,6 +1,5 @@
 # LocalBolt
 
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/the9ines/localbolt/badge)](https://scorecard.dev/viewer/?uri=github.com/the9ines/localbolt)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/9968/badge)](https://www.bestpractices.dev/projects/9968)
 [![Known Vulnerabilities](https://snyk.io/test/github/the9ines/localbolt/badge.svg?targetFile=web/package.json)](https://snyk.io/test/github/the9ines/localbolt?targetFile=web/package.json)
 [![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/localbolt.site?label=observatory)](https://developer.mozilla.org/en-US/observatory/analyze?host=localbolt.site)

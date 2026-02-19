@@ -2,6 +2,8 @@
 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/the9ines/localbolt/badge)](https://scorecard.dev/viewer/?uri=github.com/the9ines/localbolt)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/9968/badge)](https://www.bestpractices.dev/projects/9968)
+[![codecov](https://codecov.io/gh/the9ines/localbolt/graph/badge.svg)](https://codecov.io/gh/the9ines/localbolt)
+[![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/localbolt.site?label=observatory)](https://developer.mozilla.org/en-US/observatory/analyze?host=localbolt.site)
 
 **[localbolt.site](https://localbolt.site)** - use it now, no install needed.
 

@@ -44,7 +44,9 @@ jobs:
       - run: npm run test:coverage
       - run: npm run build
       - uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5
+        if: ${{ !cancelled() }}
         with:
           directory: web/coverage
           flags: web
           token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false

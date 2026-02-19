@@ -43,10 +43,7 @@ jobs:
       - run: npm run lint
       - run: npm run test:coverage
       - run: npm run build
-      - uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5
-        if: ${{ !cancelled() }}
+      - uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2
         with:
-          directory: web/coverage
-          flags: web
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: false
+          file: web/coverage/lcov.info
+          flag-name: web

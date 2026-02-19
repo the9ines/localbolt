@@ -1,5 +1,8 @@
 # LocalBolt
 
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/the9ines/localbolt/badge)](https://scorecard.dev/viewer/?uri=github.com/the9ines/localbolt)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/9968/badge)](https://www.bestpractices.dev/projects/9968)
+
 **[localbolt.site](https://localbolt.site)** - use it now, no install needed.
 
 Encrypted peer-to-peer file transfer. Files go directly between devices, never stored on any server.

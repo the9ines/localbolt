@@ -1,9 +1,7 @@
 # LocalBolt
 
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/9968/badge)](https://www.bestpractices.dev/projects/9968)
-[![Known Vulnerabilities](https://snyk.io/test/github/the9ines/localbolt/badge.svg?targetFile=web/package.json)](https://snyk.io/test/github/the9ines/localbolt?targetFile=web/package.json)
 [![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/localbolt.site?label=observatory)](https://developer.mozilla.org/en-US/observatory/analyze?host=localbolt.site)
-[![Coverage Status](https://coveralls.io/repos/github/the9ines/localbolt/badge.svg?branch=main)](https://coveralls.io/github/the9ines/localbolt?branch=main)
 
 **[localbolt.site](https://localbolt.site)** - use it now, no install needed.
 

@@ -12,24 +12,25 @@ Encrypted peer-to-peer file transfer. Files go directly between devices — neve
 
 ## Quick Start
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org) (v18+)
-- [Rust](https://rustup.rs) (for the signaling server)
-
-### Run
-
 ```bash
 git clone https://github.com/the9ines/localbolt.git
 cd localbolt
 ./start.sh
 ```
 
-This starts both the signaling server (port 3001) and the web app (port 8080).
+That's it. The script installs any missing dependencies (Rust, Node.js), builds the signaling server, and starts everything.
 
-Open `http://localhost:8080` on two devices on the same network, click **Devices**, select the other device, accept the connection, and start transferring files.
+Open `http://localhost:8080` on two devices on the same network, click **Devices**, select the other device, and start transferring.
 
-### Manual Setup
+**Windows:**
+
+```
+start.bat
+```
+
+> If Rust or Node.js aren't installed, the script will tell you where to get them.
+
+## Manual Setup
 
 If you prefer to run the components separately:
 
@@ -54,7 +55,7 @@ npm run dev
 2. **Select** the other device from the device list — it appears automatically
 3. **Transfer** files by drag-and-drop — encrypted, peer-to-peer, no size limits
 
-The signaling server only helps devices find each other and set up the WebRTC connection. Once connected, all data flows directly between devices over an encrypted channel. The signaling server never sees your files.
+The signaling server only helps devices find each other. Once connected, all data flows directly between devices over an encrypted channel. The signaling server never sees your files.
 
 ## Architecture
 

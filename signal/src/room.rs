@@ -66,7 +66,7 @@ impl RoomManager {
         let mut existing_peers = Vec::new();
 
         // Insert into the room, collecting existing peers and broadcasting.
-        let mut room = self.rooms.entry(ip.to_string()).or_insert_with(Vec::new);
+        let mut room = self.rooms.entry(ip.to_string()).or_default();
 
         // Snapshot existing peers for the "peers" response.
         for p in room.iter() {

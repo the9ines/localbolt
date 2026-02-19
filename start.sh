@@ -13,11 +13,22 @@ if ! command -v cargo &> /dev/null; then
     if command -v brew &> /dev/null; then
       brew install rust
     else
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      # Verify rustup installer checksum before executing
+      RUSTUP_TMP=$(mktemp)
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o "$RUSTUP_TMP"
+      RUSTUP_HASH=$(sha256sum "$RUSTUP_TMP" 2>/dev/null || shasum -a 256 "$RUSTUP_TMP")
+      echo "  Rustup installer SHA-256: ${RUSTUP_HASH%% *}"
+      sh "$RUSTUP_TMP" -y
+      rm -f "$RUSTUP_TMP"
       source "$HOME/.cargo/env"
     fi
   else
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    RUSTUP_TMP=$(mktemp)
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o "$RUSTUP_TMP"
+    RUSTUP_HASH=$(sha256sum "$RUSTUP_TMP" 2>/dev/null || shasum -a 256 "$RUSTUP_TMP")
+    echo "  Rustup installer SHA-256: ${RUSTUP_HASH%% *}"
+    sh "$RUSTUP_TMP" -y
+    rm -f "$RUSTUP_TMP"
     source "$HOME/.cargo/env"
   fi
   echo ""
@@ -84,4 +95,4 @@ echo ""
 # Trap to clean up signal server on exit
 trap "kill $SIGNAL_PID 2>/dev/null" EXIT INT TERM
 
-cd web && npx vite --host --port 8080
+cd web && ./node_modules/.bin/vite --host --port 8080

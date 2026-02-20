@@ -97,11 +97,25 @@ npm run dev
 | Signaling | Rust (Tokio + Tungstenite WebSocket) |
 | Discovery | Dual signaling, LAN + cloud, IP-based peer grouping |
 
+## Ecosystem
+
+LocalBolt is part of the [Bolt Protocol](https://github.com/the9ines/bolt-protocol) ecosystem.
+
+| Relationship | Repository |
+|-------------|-----------|
+| Protocol spec | [bolt-protocol](https://github.com/the9ines/bolt-protocol) |
+| SDK dependency | [bolt-core-sdk](https://github.com/the9ines/bolt-core-sdk) |
+| Bundles (subtree) | [bolt-rendezvous](https://github.com/the9ines/bolt-rendezvous) |
+| Native app | [localbolt-app](https://github.com/the9ines/localbolt-app) |
+| Web app | [localbolt-v3](https://github.com/the9ines/localbolt-v3) |
+
+This is an **open-source** project. Free to use, self-host, and modify.
+
 ## Related
 
-- **[localbolt.site](https://localbolt.site)** - use it in the browser, no install
-- **[LocalBolt App](https://github.com/the9ines/localbolt-app)** - native desktop app with embedded signal server
+- **[localbolt.site](https://localbolt.site)** — use it in the browser, no install
+- **[LocalBolt App](https://github.com/the9ines/localbolt-app)** — native desktop app with embedded signal server
 
 ## License
 
-MIT - built by [the9ines](https://the9ines.com)
+MIT — built by [the9ines](https://the9ines.com)

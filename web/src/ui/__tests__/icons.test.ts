@@ -1,50 +1,109 @@
 import { describe, it, expect } from 'vitest';
 import { icons } from '../icons';
 
+const allIconNames = [
+  'zap', 'shield', 'shieldFilled', 'wifi', 'laptop', 'server',
+  'lock', 'globe', 'clock', 'arrowDown', 'share2', 'smartphone',
+  'tablet', 'monitor', 'upload', 'file', 'pause', 'play', 'x',
+  'copy', 'check', 'eye', 'eyeOff', 'radio', 'messageCircle', 'userX',
+];
+
 describe('icons', () => {
-  it('returns valid SVG strings', () => {
-    const svg = icons.zap();
-    expect(svg).toContain('<svg');
-    expect(svg).toContain('</svg>');
-    expect(svg).toContain('xmlns="http://www.w3.org/2000/svg"');
-  });
-
-  it('applies custom class', () => {
-    const svg = icons.shield('w-5 h-5 text-neon');
-    expect(svg).toContain('class="w-5 h-5 text-neon"');
-  });
-
-  it('uses empty class by default', () => {
-    const svg = icons.lock();
-    expect(svg).toContain('class=""');
-  });
-
-  it('has stroke-based rendering for regular icons', () => {
-    const svg = icons.wifi('test');
-    expect(svg).toContain('stroke="currentColor"');
-    expect(svg).toContain('fill="none"');
-  });
-
-  it('has fill-based rendering for filled icons', () => {
-    const svg = icons.shieldFilled('test');
-    expect(svg).toContain('fill="currentColor"');
-  });
-
   it('exports all expected icon names', () => {
-    const expectedIcons = [
-      'zap', 'shield', 'shieldFilled', 'wifi', 'laptop', 'server',
-      'lock', 'globe', 'clock', 'arrowDown', 'share2', 'smartphone',
-      'tablet', 'monitor', 'upload', 'file', 'pause', 'play', 'x',
-      'copy', 'check', 'eye', 'eyeOff', 'radio', 'messageCircle', 'userX',
-    ];
-    for (const name of expectedIcons) {
+    for (const name of allIconNames) {
       expect(icons).toHaveProperty(name);
       expect(typeof (icons as Record<string, unknown>)[name]).toBe('function');
     }
   });
 
-  it('uses viewBox 0 0 24 24', () => {
-    const svg = icons.globe();
-    expect(svg).toContain('viewBox="0 0 24 24"');
+  it('does not export unexpected icons', () => {
+    const actualKeys = Object.keys(icons);
+    for (const key of actualKeys) {
+      expect(allIconNames).toContain(key);
+    }
+  });
+});
+
+describe('each icon returns valid SVG', () => {
+  for (const name of allIconNames) {
+    it(`${name} returns valid SVG markup`, () => {
+      const fn = (icons as Record<string, (cls?: string) => string>)[name];
+      const svg = fn();
+      expect(svg).toContain('<svg');
+      expect(svg).toContain('</svg>');
+      expect(svg).toContain('xmlns="http://www.w3.org/2000/svg"');
+      expect(svg).toContain('viewBox="0 0 24 24"');
+    });
+
+    it(`${name} applies custom class`, () => {
+      const fn = (icons as Record<string, (cls?: string) => string>)[name];
+      const svg = fn('w-5 h-5 text-neon');
+      expect(svg).toContain('class="w-5 h-5 text-neon"');
+    });
+
+    it(`${name} uses empty class by default`, () => {
+      const fn = (icons as Record<string, (cls?: string) => string>)[name];
+      const svg = fn();
+      expect(svg).toContain('class=""');
+    });
+  }
+});
+
+describe('icon rendering modes', () => {
+  const strokeIcons = allIconNames.filter(n => n !== 'shieldFilled');
+  const filledIcons = ['shieldFilled'];
+
+  for (const name of strokeIcons) {
+    it(`${name} uses stroke-based rendering`, () => {
+      const fn = (icons as Record<string, (cls?: string) => string>)[name];
+      const svg = fn();
+      expect(svg).toContain('stroke="currentColor"');
+      expect(svg).toContain('fill="none"');
+    });
+  }
+
+  for (const name of filledIcons) {
+    it(`${name} uses fill-based rendering`, () => {
+      const fn = (icons as Record<string, (cls?: string) => string>)[name];
+      const svg = fn();
+      expect(svg).toContain('fill="currentColor"');
+    });
+  }
+});
+
+describe('icon SVG content', () => {
+  it('zap contains a polygon', () => {
+    expect(icons.zap()).toContain('<polygon');
+  });
+
+  it('shield contains a path', () => {
+    expect(icons.shield()).toContain('<path');
+  });
+
+  it('server contains rect elements', () => {
+    expect(icons.server()).toContain('<rect');
+  });
+
+  it('globe contains a circle', () => {
+    expect(icons.globe()).toContain('<circle');
+  });
+
+  it('check contains a path', () => {
+    expect(icons.check()).toContain('<path');
+  });
+
+  it('x contains paths for the cross', () => {
+    const svg = icons.x();
+    expect(svg).toContain('<path');
+    expect((svg.match(/<path/g) || []).length).toBe(2);
+  });
+
+  it('pause contains two rects', () => {
+    const svg = icons.pause();
+    expect((svg.match(/<rect/g) || []).length).toBe(2);
+  });
+
+  it('play contains a polygon', () => {
+    expect(icons.play()).toContain('<polygon');
   });
 });

@@ -6,7 +6,7 @@ describe('WebRTC error hierarchy', () => {
     const err = new WebRTCError('test');
     expect(err).toBeInstanceOf(Error);
     expect(err).toBeInstanceOf(WebRTCError);
-    expect(err.name).toBe('WebRTCError');
+    expect(err.name).toBe('BoltError');
     expect(err.message).toBe('test');
   });
 

@@ -49,6 +49,8 @@ jobs:
       - run: npm run lint
       - run: npm run test:coverage
       - run: npm run build
+      - name: Transport drift guard
+        run: bash ../scripts/check-transport-drift.sh src
       - uses: coverallsapp/github-action@5cbfd81b66ca5d10c19b062c04de0199c215fb6e # v2
         with:
           file: web/coverage/lcov.info

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { escapeHTML } from '../sanitize';
+import { escapeHTML } from '@the9ines/bolt-transport-web';
 
 describe('escapeHTML', () => {
   it('escapes ampersands', () => {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { icons } from '../icons';
+import { icons } from '@the9ines/bolt-transport-web';
 
 const allIconNames = [
   'zap', 'shield', 'shieldFilled', 'wifi', 'laptop', 'server',

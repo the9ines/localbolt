@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { isPrivateIP, getLocalOnlyRTCConfig, getPlatformICEServers, getMaxChunkSize, detectDevice, getDeviceName, isLocalCandidate } from '../platform-utils';
+import { isPrivateIP, getLocalOnlyRTCConfig, getPlatformICEServers, getMaxChunkSize, detectDevice, getPlatformDeviceName as getDeviceName, isLocalCandidate } from '@the9ines/bolt-transport-web';
 
 describe('isPrivateIP', () => {
   it('detects 10.x.x.x as private', () => {

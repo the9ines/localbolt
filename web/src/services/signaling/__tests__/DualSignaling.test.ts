@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import type { SignalingProvider, SignalMessage, DiscoveredDevice } from '../SignalingProvider';
+import type { SignalingProvider, SignalMessage, DiscoveredDevice } from '@the9ines/bolt-transport-web';
 
 // Mock signaling provider for testing DualSignaling logic
 class MockSignaling implements SignalingProvider {

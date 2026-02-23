@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { WebRTCError, ConnectionError, SignalingError, TransferError, EncryptionError } from '../webrtc-errors';
+import { WebRTCError, ConnectionError, SignalingError, TransferError, EncryptionError } from '@the9ines/bolt-transport-web';
 
 describe('WebRTC error hierarchy', () => {
   it('WebRTCError extends Error', () => {

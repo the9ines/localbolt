@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { detectDeviceType, getDeviceName } from '../device-detect';
+import { detectDeviceType, getDeviceName } from '@the9ines/bolt-transport-web';
 
 // Mock navigator.userAgent and window.screen
 function mockUA(ua: string, screenWidth = 1920) {

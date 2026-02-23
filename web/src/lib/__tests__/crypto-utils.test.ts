@@ -6,7 +6,7 @@ import {
   normalizePeerCode,
   sha256,
   bufferToHex,
-} from '../crypto-utils';
+} from '@the9ines/bolt-core';
 
 const ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 

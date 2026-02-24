@@ -5,6 +5,7 @@ edition = "2021"
 description = "WebSocket signaling server for the Bolt protocol (peer discovery and session coordination)"
 
 [dependencies]
+bolt-rendezvous-protocol = { path = "protocol" }
 tokio = { version = "1", features = ["full"] }
 tokio-tungstenite = "0.24"
 futures-util = "0.3"

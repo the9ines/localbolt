@@ -36,6 +36,7 @@ dependencies = [
 name = "bolt-rendezvous"
 version = "0.1.1"
 dependencies = [
+ "bolt-rendezvous-protocol",
  "dashmap",
  "futures-util",
  "serde",
@@ -45,6 +46,14 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "uuid",
+]
+
+[[package]]
+name = "bolt-rendezvous-protocol"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

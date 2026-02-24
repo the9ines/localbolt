@@ -4,6 +4,31 @@ All notable changes to this project are documented here. Newest first.
 
 ---
 
+## localbolt-v1.0.16 — 2026-02-24
+
+**Commit:** 91a0f29
+
+Bump @the9ines/bolt-core from 0.3.0 to 0.4.0 (A1 adoption). Dead constant
+exports removed upstream; no behavior changes. transport-web remains 0.6.0.
+272/272 tests pass. Build clean.
+
+- Files changed:
+  - `web/package.json`
+  - `web/package-lock.json`
+
+## localbolt-v1.0.15 — 2026-02-24
+
+**Commit:** f9c6f09
+
+SDK dependency upgrade. Bumped @the9ines/bolt-core from 0.2.0 to 0.3.0 and
+@the9ines/bolt-transport-web from 0.3.0 to 0.6.0. Switched from file:
+references to pinned registry versions on npm.pkg.github.com. 272/272 tests
+pass. Build clean.
+
+- Files changed:
+  - `web/package.json`
+  - `web/package-lock.json`
+
 ## localbolt-v1.0.14
 
 - **Date:** 2026-02-23

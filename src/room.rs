@@ -275,7 +275,10 @@ mod tests {
             ServerMessage::PeerJoined { peer } => {
                 assert_eq!(peer.peer_code, "SECOND");
             }
-            other => panic!("expected PeerJoined, got: {:?}", serde_json::to_string(&other)),
+            other => panic!(
+                "expected PeerJoined, got: {:?}",
+                serde_json::to_string(&other)
+            ),
         }
     }
 
@@ -332,7 +335,10 @@ mod tests {
             ServerMessage::PeerLeft { peer_code } => {
                 assert_eq!(peer_code, "LEAVE");
             }
-            other => panic!("expected PeerLeft, got: {:?}", serde_json::to_string(&other)),
+            other => panic!(
+                "expected PeerLeft, got: {:?}",
+                serde_json::to_string(&other)
+            ),
         }
     }
 

@@ -1,40 +1,7 @@
 import { describe, it, expect } from 'vitest';
+import { formatSpeed, formatTime, formatSize } from '@the9ines/bolt-transport-web';
 
-// The formatSpeed, formatTime, formatSize functions are not exported,
-// so we test them indirectly by testing equivalent logic.
-// We can also import and test the module's internal behavior.
-
-// Re-implement the pure functions for direct testing since they're module-private.
-// This mirrors the exact logic in transfer-progress.ts.
-
-function formatSpeed(bytesPerSecond: number): string {
-  if (bytesPerSecond === 0) return '0 B/s';
-  const units = ['B/s', 'KB/s', 'MB/s', 'GB/s'];
-  const exp = Math.min(Math.floor(Math.log(bytesPerSecond) / Math.log(1024)), units.length - 1);
-  return `${(bytesPerSecond / Math.pow(1024, exp)).toFixed(2)} ${units[exp]}`;
-}
-
-function formatTime(seconds: number): string {
-  if (!isFinite(seconds) || seconds < 0) return 'calculating...';
-  if (seconds === 0) return '0s';
-  const hrs = Math.floor(seconds / 3600);
-  const mins = Math.floor((seconds % 3600) / 60);
-  const secs = Math.floor(seconds % 60);
-  const parts: string[] = [];
-  if (hrs > 0) parts.push(`${hrs}h`);
-  if (mins > 0) parts.push(`${mins}m`);
-  if (secs > 0 || parts.length === 0) parts.push(`${secs}s`);
-  return parts.join(' ');
-}
-
-function formatSize(bytes: number): string {
-  if (bytes === 0) return '0 B';
-  const units = ['B', 'KB', 'MB', 'GB'];
-  const exp = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
-  return `${(bytes / Math.pow(1024, exp)).toFixed(2)} ${units[exp]}`;
-}
-
-describe('formatSpeed', () => {
+describe('formatSpeed (SDK canonical)', () => {
   it('formats zero', () => {
     expect(formatSpeed(0)).toBe('0 B/s');
   });
@@ -57,7 +24,7 @@ describe('formatSpeed', () => {
   });
 });
 
-describe('formatTime', () => {
+describe('formatTime (SDK canonical)', () => {
   it('handles zero', () => {
     expect(formatTime(0)).toBe('0s');
   });
@@ -92,7 +59,7 @@ describe('formatTime', () => {
   });
 });
 
-describe('formatSize', () => {
+describe('formatSize (SDK canonical)', () => {
   it('formats zero', () => {
     expect(formatSize(0)).toBe('0 B');
   });

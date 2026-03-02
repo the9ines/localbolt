@@ -1,39 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-
-// Inline minimal store for testing (avoids browser-only imports)
-class TestStore {
-  private state: Record<string, any>;
-  private listeners: Set<() => void> = new Set();
-
-  constructor(initial: Record<string, any>) {
-    this.state = { ...initial };
-  }
-
-  getState() {
-    return this.state;
-  }
-
-  setState(partial: Record<string, any>) {
-    this.state = { ...this.state, ...partial };
-    this.listeners.forEach((fn) => fn());
-  }
-
-  subscribe(listener: () => void): () => void {
-    this.listeners.add(listener);
-    return () => this.listeners.delete(listener);
-  }
-}
+import { AppStore } from '@the9ines/bolt-transport-web';
 
 describe('AppStore', () => {
-  let store: TestStore;
+  let store: InstanceType<typeof AppStore>;
 
   beforeEach(() => {
-    store = new TestStore({
-      peerCode: '',
-      peers: [],
-      isConnected: false,
-      signalingConnected: false,
-    });
+    store = new AppStore();
   });
 
   it('returns initial state', () => {

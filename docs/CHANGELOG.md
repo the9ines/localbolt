@@ -4,6 +4,19 @@ All notable changes to this project are documented here. Newest first.
 
 ---
 
+## localbolt-v1.0.24-c6-hardening — 2026-03-05
+
+**Commit:** c88ec5b
+
+Add localbolt-core upgrade tooling (C6 hardening). upgrade-localbolt-core.sh
+with check mode (validates pin, lockfile, single install) and upgrade mode
+(bumps pin, reinstalls, runs build+test gates). Completes C6 deferred scope.
+
+**Files changed:**
+- scripts/upgrade-localbolt-core.sh (new)
+
+---
+
 ## localbolt-v1.0.23-c7-tofu-wiring — 2026-03-05
 
 **Commit:** 1bcb7b8

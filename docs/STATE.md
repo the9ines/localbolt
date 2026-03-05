@@ -6,8 +6,8 @@
 
 ## Latest Release
 
-- **Tag:** localbolt-v1.0.23-c7-tofu-wiring
-- **Commit:** 1bcb7b8
+- **Tag:** localbolt-v1.0.24-c6-hardening
+- **Commit:** c88ec5b
 - **Branch:** main
 - **Date:** 2026-03-05
 - **Tests:** 300 pass (14 test files)
@@ -22,13 +22,14 @@
 | tweetnacl | ^1.0.3 |
 | tweetnacl-util | ^0.15.1 |
 
-## C6 Guards
+## C6 Guards — DONE
 
 | Script | Purpose |
 |--------|---------|
 | scripts/check-core-version-pin.sh | Verify localbolt-core version pin |
 | scripts/check-core-single-install.sh | Verify single install in tree |
 | scripts/check-core-drift.sh | Detect ad-hoc orchestration drift |
+| scripts/upgrade-localbolt-core.sh | Upgrade tooling (check + upgrade modes) |
 
 ## Dev Dependencies (notable)
 

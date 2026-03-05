@@ -6,10 +6,11 @@
 
 ## Latest Release
 
-- **Tag:** localbolt-v1.0.22-c6-core-guards
-- **Commit:** ed2d671
+- **Tag:** localbolt-v1.0.23-c7-tofu-wiring
+- **Commit:** 1bcb7b8
 - **Branch:** main
 - **Date:** 2026-03-05
+- **Tests:** 300 pass (14 test files)
 
 ## Dependencies
 

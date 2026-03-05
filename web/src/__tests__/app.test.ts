@@ -6,6 +6,21 @@ vi.mock('@the9ines/bolt-core', () => ({
   generateSecurePeerCode: () => 'APP-TEST-CODE',
 }));
 
+// ── Mock @the9ines/localbolt-core ───────────────────────────────────────
+vi.mock('@the9ines/localbolt-core', () => ({
+  getPhase: () => 'idle',
+  getGeneration: () => 0,
+  isCurrentGeneration: () => true,
+  beginRequest: () => true,
+  receiveRequest: () => true,
+  beginConnecting: () => true,
+  markConnected: () => true,
+  resetSession: () => 1,
+  getVerificationState: () => ({ state: 'legacy', sasCode: null }),
+  onVerificationStateChange: () => () => {},
+  isTransferAllowed: (state: string, connected: boolean) => connected && (state === 'verified' || state === 'legacy'),
+}));
+
 // ── Mock @the9ines/bolt-transport-web ───────────────────────────────────
 vi.mock('@the9ines/bolt-transport-web', () => {
   const state: Record<string, unknown> = {

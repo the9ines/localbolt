@@ -58,8 +58,17 @@ vi.mock('@the9ines/bolt-core', () => ({
   generateSecurePeerCode: () => 'TEST-CODE',
 }));
 
+// ── Mock @/services/identity ─────────────────────────────────────────
+vi.mock('@/services/identity', () => ({
+  initIdentity: vi.fn(() => Promise.resolve({
+    publicKey: new Uint8Array(32),
+    secretKey: new Uint8Array(32),
+  })),
+}));
+
 // ── Mock @the9ines/localbolt-core ───────────────────────────────────────
 vi.mock('@the9ines/localbolt-core', () => ({
+  setVerificationState: vi.fn(),
   getPhase: () => mockSession.phase,
   getGeneration: () => mockSession.generation,
   isCurrentGeneration: (gen: number) => gen === mockSession.generation,
@@ -108,6 +117,16 @@ vi.mock('@the9ines/bolt-transport-web', () => ({
   getDeviceName: () => 'Test Device',
   detectDevice: () => ({ isLinux: false, isWindows: false, isMobile: false }),
   createConnectionStatus: () => document.createElement('div'),
+  createVerificationStatus: vi.fn(() => ({
+    element: document.createElement('div'),
+    update: vi.fn(),
+  })),
+  IndexedDBPinStore: class {
+    getPin = vi.fn().mockResolvedValue(null);
+    setPin = vi.fn().mockResolvedValue(undefined);
+    removePin = vi.fn().mockResolvedValue(undefined);
+    markVerified = vi.fn().mockResolvedValue(undefined);
+  },
   createDeviceDiscovery: (...args: any[]) => {
     captured.discoveryArgs = args;
     return document.createElement('div');
@@ -122,11 +141,12 @@ vi.mock('@the9ines/bolt-transport-web', () => ({
     isConnected() { return false; }
   },
   WebRTCService: class {
-    constructor(_sig: any, _code: any, fileReceive: any, errorFn: any, progressFn: any) {
+    constructor(_sig: any, _code: any, fileReceive: any, errorFn: any, progressFn: any, _opts?: any) {
       captured.fileReceive = fileReceive;
       captured.connectionError = errorFn;
       captured.receiveProgress = progressFn;
     }
+    markPeerVerified = vi.fn();
     setConnectionStateHandler(fn: any) { captured.rtcStateChange = fn; }
     getRemotePeerCode() { return 'REMOTE-CODE'; }
     connect(...args: any[]) { return mockRtcConnect(...args); }

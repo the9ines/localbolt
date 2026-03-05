@@ -6,8 +6,17 @@ vi.mock('@the9ines/bolt-core', () => ({
   generateSecurePeerCode: () => 'APP-TEST-CODE',
 }));
 
+// ── Mock @/services/identity ─────────────────────────────────────────
+vi.mock('@/services/identity', () => ({
+  initIdentity: vi.fn(() => Promise.resolve({
+    publicKey: new Uint8Array(32),
+    secretKey: new Uint8Array(32),
+  })),
+}));
+
 // ── Mock @the9ines/localbolt-core ───────────────────────────────────────
 vi.mock('@the9ines/localbolt-core', () => ({
+  setVerificationState: vi.fn(),
   getPhase: () => 'idle',
   getGeneration: () => 0,
   isCurrentGeneration: () => true,
@@ -50,6 +59,16 @@ vi.mock('@the9ines/bolt-transport-web', () => {
     showToast: vi.fn(),
     createFileUpload: () => document.createElement('div'),
     createConnectionStatus: () => document.createElement('div'),
+    createVerificationStatus: vi.fn(() => ({
+      element: document.createElement('div'),
+      update: vi.fn(),
+    })),
+    IndexedDBPinStore: class {
+      getPin = vi.fn().mockResolvedValue(null);
+      setPin = vi.fn().mockResolvedValue(undefined);
+      removePin = vi.fn().mockResolvedValue(undefined);
+      markVerified = vi.fn().mockResolvedValue(undefined);
+    },
     createDeviceDiscovery: () => document.createElement('div'),
     setWebrtcRef: vi.fn(),
     detectDeviceType: () => 'desktop',
@@ -69,6 +88,7 @@ vi.mock('@the9ines/bolt-transport-web', () => {
       getRemotePeerCode() { return ''; }
       connect() { return Promise.resolve(); }
       disconnect() {}
+      markPeerVerified = vi.fn();
     },
     WebRTCError: class extends Error { details?: string; },
     SignalingError: class extends Error {},

@@ -14,6 +14,11 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["src/**/*.test.ts"],
+    server: {
+      deps: {
+        inline: ["@the9ines/localbolt-core"],
+      },
+    },
     coverage: {
       provider: "v8",
       reporter: ["text", "lcov"],

@@ -4,6 +4,23 @@ All notable changes to this project are documented here. Newest first.
 
 ---
 
+## localbolt-v1.0.25-d4-npmjs-cutover — 2026-03-05
+
+**Commit:** 9bb3c38
+
+D4: switch consumer resolution from GitHub Packages to npmjs.org.
+PAT no longer required for public package installs.
+`.npmrc` updated, deps bumped (bolt-core 0.5.1, transport-web 0.6.4,
+localbolt-core 0.1.2), lockfile regenerated from registry.npmjs.org.
+300 tests pass, build succeeds.
+
+**Files changed:**
+- web/.npmrc
+- web/package-lock.json
+- web/package.json
+
+---
+
 ## localbolt-v1.0.24-c6-hardening — 2026-03-05
 
 **Commit:** c88ec5b

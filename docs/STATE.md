@@ -6,11 +6,11 @@
 
 ## Latest Release
 
-- **Tag:** localbolt-v1.0.26-d5-registry-guards
-- **Commit:** 76ae224
+- **Tag:** localbolt-v1.0.27-s-stream-r1-r1.4-security-test-lift
+- **Commit:** fc360c5
 - **Branch:** main
 - **Date:** 2026-03-06
-- **Tests:** 300 pass (14 test files)
+- **Tests:** 319 pass (15 test files)
 
 ## Dependencies
 

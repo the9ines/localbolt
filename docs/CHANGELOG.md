@@ -4,6 +4,19 @@ All notable changes to this project are documented here. Newest first.
 
 ---
 
+## localbolt-v1.0.27-s-stream-r1-r1.4-security-test-lift — 2026-03-06
+
+**Commit:** fc360c5
+
+R1-4 security-focused product test lift — 19 security-session-integrity tests
+covering stale callback rejection, trust transition isolation, transfer gating
+under reconnect edges, and no-downgrade guarantees. Baseline 300 → 319 tests.
+
+**Files changed:**
+- web/src/components/__tests__/security-session-integrity.test.ts (new, 378 lines)
+
+---
+
 ## localbolt-v1.0.26-d5-registry-guards — 2026-03-06
 
 **Commit:** 76ae224

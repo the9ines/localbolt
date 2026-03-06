@@ -6,10 +6,10 @@
 
 ## Latest Release
 
-- **Tag:** localbolt-v1.0.25-d4-npmjs-cutover
-- **Commit:** 9bb3c38
+- **Tag:** localbolt-v1.0.26-d5-registry-guards
+- **Commit:** 76ae224
 - **Branch:** main
-- **Date:** 2026-03-05
+- **Date:** 2026-03-06
 - **Tests:** 300 pass (14 test files)
 
 ## Dependencies
@@ -22,7 +22,7 @@
 | tweetnacl | ^1.0.3 |
 | tweetnacl-util | ^0.15.1 |
 
-## C6 Guards — DONE
+## Guard Scripts — C6 + D5
 
 | Script | Purpose |
 |--------|---------|
@@ -30,6 +30,8 @@
 | scripts/check-core-single-install.sh | Verify single install in tree |
 | scripts/check-core-drift.sh | Detect ad-hoc orchestration drift |
 | scripts/upgrade-localbolt-core.sh | Upgrade tooling (check + upgrade modes) |
+| scripts/check-registry-mapping.sh | Verify registry mapping consistency |
+| scripts/check-lockfile-registry.sh | Verify lockfile registry entries |
 
 ## Dev Dependencies (notable)
 

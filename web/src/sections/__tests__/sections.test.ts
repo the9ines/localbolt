@@ -14,6 +14,7 @@ vi.mock('@the9ines/bolt-transport-web', () => {
       subscribe: (fn: () => void) => { subscribers.push(fn); },
     },
     icons: new Proxy({}, { get: () => iconFn }),
+    initPolicyAdapter: () => Promise.resolve({ name: 'ts-fallback' }),
   };
 });
 

@@ -92,6 +92,7 @@ vi.mock('@the9ines/bolt-transport-web', () => {
     },
     WebRTCError: class extends Error { details?: string; },
     SignalingError: class extends Error {},
+    initPolicyAdapter: () => Promise.resolve({ name: 'ts-fallback' }),
   };
 });
 

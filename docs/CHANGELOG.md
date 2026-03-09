@@ -4,6 +4,34 @@ All notable changes to this project are documented here. Newest first.
 
 ---
 
+## localbolt-v1.0.35-recon-xfer1-phase-b — 2026-03-09
+
+**Commit:** 526ac67
+
+RECON-XFER-1 Phase B verification — no code changes required.
+
+Consumer audit confirmed localbolt is already protected against the reconnect-resend
+bug (RECON-XFER-1) via shared `@the9ines/localbolt-core` generation guard pattern.
+
+**Evidence (no-change proof):**
+- Generation guards on all async callbacks in `peer-connection.ts` (lines 171-183, 216-224)
+- Canonical `resetSession()` increments generation, clears phase + verification atomically
+- Transfer gating via `isTransferAllowed(vState, isConnected)` enforced on reconnect boundary
+- 19 security-session-integrity tests covering stale callback rejection, trust isolation, transfer gating
+- Build: Vite production build green (WASM bundle present in output)
+- Tests: 15 files, 319 tests — all pass
+- Type check: `tsc --noEmit` clean
+
+**AC evidence:**
+- AC-RX-07 (remaining consumers): localbolt verified — no patch needed
+- AC-RX-08 (WASM/fallback): WASM policy adapter is orthogonal to reconnect path (transfer scheduling only, not session lifecycle). Build output includes WASM bundle. Forced-fallback mode uses same session lifecycle. Manual runtime confirmation deferred (not automatable without live peers).
+
+**Files changed:**
+- docs/CHANGELOG.md
+- docs/STATE.md
+
+---
+
 ## localbolt-v1.0.34-domain-rename — 2026-03-08
 
 **Commit:** c8f9fdc

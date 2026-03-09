@@ -6,10 +6,11 @@
 
 ## Latest Release
 
-- **Tag:** localbolt-v1.0.34-domain-rename
-- **Commit:** c8f9fdc
+- **Tag:** localbolt-v1.0.35-recon-xfer1-phase-b
+- **Commit:** 526ac67
 - **Branch:** main
-- **Date:** 2026-03-08
+- **Date:** 2026-03-09
+- **Tests:** 15 files, 319 pass
 
 ## Dependencies
 

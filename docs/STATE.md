@@ -6,11 +6,10 @@
 
 ## Latest Release
 
-- **Tag:** localbolt-v1.0.27-s-stream-r1-r1.4-security-test-lift
-- **Commit:** fc360c5
+- **Tag:** localbolt-v1.0.33-csp-wasm
+- **Commit:** cbd43af
 - **Branch:** main
-- **Date:** 2026-03-06
-- **Tests:** 319 pass (15 test files)
+- **Date:** 2026-03-08
 
 ## Dependencies
 

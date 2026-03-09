@@ -4,6 +4,17 @@ All notable changes to this project are documented here. Newest first.
 
 ---
 
+## localbolt-v1.0.33-csp-wasm — 2026-03-08
+
+**Commit:** cbd43af
+
+Allow WASM compilation in CSP for policy adapter.
+
+**Files changed:**
+- web/index.html
+
+---
+
 ## localbolt-v1.0.27-s-stream-r1-r1.4-security-test-lift — 2026-03-06
 
 **Commit:** fc360c5

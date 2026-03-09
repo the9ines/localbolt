@@ -4,6 +4,19 @@ All notable changes to this project are documented here. Newest first.
 
 ---
 
+## localbolt-v1.0.34-domain-rename — 2026-03-08
+
+**Commit:** c8f9fdc
+
+Rename localbolt.site references to localbolt.app.
+
+**Files changed:**
+- README.md
+- PRD.md
+- .github/ISSUE_TEMPLATE/bug_report.md
+
+---
+
 ## localbolt-v1.0.33-csp-wasm — 2026-03-08
 
 **Commit:** cbd43af

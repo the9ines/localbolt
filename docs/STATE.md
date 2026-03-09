@@ -6,8 +6,8 @@
 
 ## Latest Release
 
-- **Tag:** localbolt-v1.0.33-csp-wasm
-- **Commit:** cbd43af
+- **Tag:** localbolt-v1.0.34-domain-rename
+- **Commit:** c8f9fdc
 - **Branch:** main
 - **Date:** 2026-03-08
 

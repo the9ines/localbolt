@@ -1,10 +1,10 @@
 # LocalBolt
 
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/9968/badge)](https://www.bestpractices.dev/projects/9968)
-[![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/localbolt.site?label=observatory)](https://developer.mozilla.org/en-US/observatory/analyze?host=localbolt.site)
+[![Mozilla Observatory](https://img.shields.io/mozilla-observatory/grade/localbolt.app?label=observatory)](https://developer.mozilla.org/en-US/observatory/analyze?host=localbolt.app)
 [![Coverage Status](https://coveralls.io/repos/github/the9ines/localbolt/badge.svg?branch=main)](https://coveralls.io/github/the9ines/localbolt?branch=main)
 
-**[localbolt.site](https://localbolt.site)** - use it now, no install needed.
+**[localbolt.app](https://localbolt.app)** - use it now, no install needed.
 
 Encrypted peer-to-peer file transfer. Files go directly between devices, never stored on any server.
 
@@ -46,7 +46,7 @@ The signaling server only helps devices find each other. Once connected, all dat
 
 ### Dual Signaling
 
-LocalBolt connects to both a local signaling server (your LAN) and the cloud signaling server (localbolt.site) simultaneously. This means:
+LocalBolt connects to both a local signaling server (your LAN) and the cloud signaling server (localbolt.app) simultaneously. This means:
 
 - **Same network**: Devices on your LAN discover each other instantly
 - **Different networks**: Devices across the internet discover each other via the cloud server
@@ -114,7 +114,7 @@ This is an **open-source** project. Free to use, self-host, and modify.
 
 ## Related
 
-- **[localbolt.site](https://localbolt.site)** — use it in the browser, no install
+- **[localbolt.app](https://localbolt.app)** — use it in the browser, no install
 - **[LocalBolt App](https://github.com/the9ines/localbolt-app)** — native desktop app with embedded signal server
 
 ## License

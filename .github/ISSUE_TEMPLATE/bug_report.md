@@ -22,4 +22,4 @@ What you expected to happen.
 - OS: [e.g. macOS 15, Windows 11, Ubuntu 24.04]
 - Browser: [e.g. Chrome 130, Firefox 133, Safari 18]
 - LocalBolt version: [e.g. 1.0.0 or commit hash]
-- Running: [self-hosted / localbolt.site / desktop app]
+- Running: [self-hosted / localbolt.app / desktop app]

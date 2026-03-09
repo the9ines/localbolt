@@ -79,7 +79,7 @@ LocalBolt becomes the reference self-hosted deployment for the Bolt ecosystem:
 
 ## 4. Non-Goals
 
-1. **Not a hosted service.** LocalBolt is self-hosted. localbolt.site is localbolt-v3.
+1. **Not a hosted service.** LocalBolt is self-hosted. localbolt.app is localbolt-v3.
 2. **No accounts or authentication.** Zero-knowledge, no user data.
 3. **No relay/TURN support.** Local-only by design. Global is ByteBolt.
 4. **No mobile app.** Native apps are localbolt-app.

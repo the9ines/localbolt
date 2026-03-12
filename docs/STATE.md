@@ -6,11 +6,11 @@
 
 ## Latest Release
 
-- **Tag:** localbolt-v1.0.35-recon-xfer1-phase-b
-- **Commit:** 526ac67
+- **Tag:** localbolt-v1.0.36-consumer-btr1-p2
+- **Commit:** e75271a
 - **Branch:** main
-- **Date:** 2026-03-09
-- **Tests:** 15 files, 319 pass
+- **Date:** 2026-03-11
+- **Tests:** 324 pass
 
 ## Dependencies
 

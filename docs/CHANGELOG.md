@@ -4,6 +4,27 @@ All notable changes to this project are documented here. Newest first.
 
 ---
 
+## localbolt-v1.0.36-consumer-btr1-p2 — 2026-03-11
+
+**Commit:** e75271a
+
+Enable BTR (Bolt Transfer Ratchet) in localbolt consumer — CBTR-2 rollout.
+
+Passes `btrEnabled: true` to the SDK WebRTCServiceOptions in peer-connection.ts,
+activating the Bolt Transfer Ratchet for forward-secrecy on data channel messages.
+Rollback is a single-line change (`btrEnabled: false`). The SDK handles
+BTR-to-non-BTR downgrade internally with `[BTR_DOWNGRADE]` log token; no
+fail-closed ratchet logic in the consumer.
+
+5 new CBTR-2 compatibility tests verify the config line, rollback path,
+downgrade delegation, and single-occurrence constraint. 324 tests pass.
+
+**Files changed:**
+- web/src/components/peer-connection.ts (added `btrEnabled: true`)
+- web/src/components/__tests__/cbtr2-btr-compatibility.test.ts (new, 76 lines)
+
+---
+
 ## localbolt-v1.0.35-recon-xfer1-phase-b — 2026-03-09
 
 **Commit:** 526ac67

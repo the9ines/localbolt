@@ -93,6 +93,8 @@ vi.mock('@the9ines/bolt-transport-web', () => {
     WebRTCError: class extends Error { details?: string; },
     SignalingError: class extends Error {},
     initPolicyAdapter: () => Promise.resolve({ name: 'ts-fallback' }),
+    initProtocolWasm: () => Promise.resolve(false),
+    getProtocolAuthorityMode: () => 'not-initialized',
   };
 });
 
@@ -119,6 +121,9 @@ describe('main.ts entry point', () => {
     document.body.appendChild(root);
 
     await import('../main');
+    // BR5: main.ts now uses async initProtocolWasm().then(() => createApp(...)).
+    // Wait for the promise chain to settle (WASM init fails in test env → fallback → createApp runs).
+    await new Promise((r) => setTimeout(r, 50));
 
     expect(root.children.length).toBeGreaterThan(0);
     document.body.removeChild(root);

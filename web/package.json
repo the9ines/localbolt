@@ -14,7 +14,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@the9ines/bolt-core": "0.5.1",
+    "@the9ines/bolt-core": "0.6.1",
     "@the9ines/bolt-transport-web": "0.6.7",
     "@the9ines/localbolt-core": "0.1.2",
     "tweetnacl": "^1.0.3",

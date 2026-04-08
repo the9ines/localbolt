@@ -375,6 +375,30 @@ describe('createPeerConnection', () => {
     expect(mockSession.phase).toBe('idle');
   });
 
+  it('handleConnectionError — TOFU violation shows security alert', () => {
+    mockShowToast.mockClear();
+    const err = new Error('key mismatch detected');
+    err.name = 'ConnectionError';
+    captured.connectionError!(err);
+    expect(mockShowToast).toHaveBeenCalledWith(
+      'Security Alert: Identity Mismatch',
+      expect.stringContaining('identity key has changed'),
+      'destructive',
+    );
+  });
+
+  it('handleConnectionError — TransferError shows transfer failed', () => {
+    mockShowToast.mockClear();
+    const err = new Error('chunk timeout');
+    err.name = 'TransferError';
+    captured.connectionError!(err);
+    expect(mockShowToast).toHaveBeenCalledWith(
+      'Transfer Failed',
+      expect.stringContaining('transfer failed'),
+      'destructive',
+    );
+  });
+
   // ── Receive progress ────────────────────────────────────────────────
 
   it('handleReceiveProgress — completed', () => {
@@ -464,5 +488,52 @@ describe('createPeerConnection', () => {
     expect(mockSendSignal).toHaveBeenCalledWith('connection_declined', { reason: 'cancelled' }, 'TARGET-PEER');
     expect(mockStore.state.connectingTo).toBeNull();
     expect(mockSession.phase).toBe('idle');
+  });
+
+  // ── Branch coverage: uncovered paths ─────────────────────────────────
+
+  it('reject button click disconnects and shows peer-rejected toast', () => {
+    mockShowToast.mockClear();
+    mockRtcDisconnect.mockClear();
+    // Find the Reject button in the container DOM
+    const buttons = container.querySelectorAll('button');
+    let rejectButton: HTMLButtonElement | null = null;
+    buttons.forEach((btn) => {
+      if (btn.textContent === 'Reject') rejectButton = btn as HTMLButtonElement;
+    });
+    expect(rejectButton).not.toBeNull();
+    rejectButton!.click();
+    expect(mockRtcDisconnect).toHaveBeenCalled();
+    expect(mockShowToast).toHaveBeenCalledWith(
+      'Peer Rejected',
+      'Connection closed — peer identity was not verified',
+    );
+  });
+
+  it('connectionStateHandler updates signalingConnected from signaling', () => {
+    expect(captured.connectionStateHandler).toBeTypeOf('function');
+    mockStore.state.signalingConnected = true;
+    captured.connectionStateHandler!();
+    // Mock DualSignaling.isConnected() returns false
+    expect(mockStore.state.signalingConnected).toBe(false);
+  });
+
+  it('store subscription toggles verification row visibility', () => {
+    // The store.subscribe callback shows/hides verification row based on isConnected
+    const subscribeCalls = mockStore.subscribe.mock.calls;
+    expect(subscribeCalls.length).toBeGreaterThan(0);
+    const subscribeCallback = subscribeCalls[0][0];
+
+    // When disconnected, verification row should be hidden
+    mockStore.state.isConnected = false;
+    subscribeCallback();
+    const verificationRow = container.querySelectorAll('.flex.items-center.gap-3');
+    const row = verificationRow[0] as HTMLElement;
+    expect(row.hidden).toBe(true);
+
+    // When connected, verification row should be visible
+    mockStore.state.isConnected = true;
+    subscribeCallback();
+    expect(row.hidden).toBe(false);
   });
 });

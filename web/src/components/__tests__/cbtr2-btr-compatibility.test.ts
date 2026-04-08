@@ -40,13 +40,15 @@ describe('CBTR-2: BTR rollback path', () => {
   it('btrEnabled can be set to false for rollback', async () => {
     const source = await loadSource();
 
-    // Verify rollback is a single-line change: btrEnabled: true → false
-    const btrLine = source.split('\n').find((l: string) => l.includes('btrEnabled'));
-    expect(btrLine).toBeDefined();
-    expect(btrLine!.trim()).toBe('btrEnabled: true,');
+    // Verify every btrEnabled line is set to true
+    const btrLines = source.split('\n').filter((l: string) => l.includes('btrEnabled'));
+    expect(btrLines.length).toBeGreaterThan(0);
+    for (const line of btrLines) {
+      expect(line.trim()).toBe('btrEnabled: true,');
+    }
 
-    // Rollback verification: replacing true with false would disable BTR
-    const rolledBack = source.replace('btrEnabled: true', 'btrEnabled: false');
+    // Rollback verification: replacing all true with false would disable BTR
+    const rolledBack = source.replace(/btrEnabled: true/g, 'btrEnabled: false');
     expect(rolledBack).toContain('btrEnabled: false');
     expect(rolledBack).not.toContain('btrEnabled: true');
   });
@@ -69,8 +71,11 @@ describe('CBTR-2: BTR↔non-BTR compatibility', () => {
   it('non-BTR baseline is preserved when btrEnabled is false', async () => {
     const source = await loadSource();
 
-    // Count btrEnabled occurrences — should be exactly 1 (the config line)
+    // Count btrEnabled occurrences — 5 total:
+    // 1× WebRTCService (createFreshRtcService)
+    // 2× BrowserAppTransport (connection_accepted + acceptRequest)
+    // 2× WtDataTransport (connection_accepted + acceptRequest)
     const matches = source.match(/btrEnabled/g);
-    expect(matches).toHaveLength(1);
+    expect(matches).toHaveLength(5);
   });
 });

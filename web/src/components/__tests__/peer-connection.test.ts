@@ -36,6 +36,7 @@ const mockStore = vi.hoisted(() => {
 
 const mockShowToast = vi.hoisted(() => vi.fn());
 const mockSetWebrtcRef = vi.hoisted(() => vi.fn());
+const mockSetDirectTransportRef = vi.hoisted(() => vi.fn());
 const mockSendSignal = vi.hoisted(() => vi.fn(() => Promise.resolve()));
 const mockRtcConnect = vi.hoisted(() => vi.fn(() => Promise.resolve()));
 const mockRtcDisconnect = vi.hoisted(() => vi.fn());
@@ -113,6 +114,7 @@ vi.mock('@the9ines/bolt-transport-web', () => ({
   store: mockStore,
   showToast: mockShowToast,
   setWebrtcRef: mockSetWebrtcRef,
+  setDirectTransportRef: mockSetDirectTransportRef,
   detectDeviceType: () => 'desktop',
   getDeviceName: () => 'Test Device',
   detectDevice: () => ({ isLinux: false, isWindows: false, isMobile: false }),
@@ -151,6 +153,16 @@ vi.mock('@the9ines/bolt-transport-web', () => ({
     getRemotePeerCode() { return 'REMOTE-CODE'; }
     connect(...args: any[]) { return mockRtcConnect(...args); }
     disconnect() { mockRtcDisconnect(); }
+  },
+  BrowserAppTransport: class {
+    connect = vi.fn(() => Promise.resolve());
+    disconnect = vi.fn();
+    markPeerVerified = vi.fn();
+  },
+  WtDataTransport: class {
+    connect = vi.fn(() => Promise.resolve(true));
+    disconnect = vi.fn();
+    markPeerVerified = vi.fn();
   },
   WebRTCError: class extends Error { details?: string; },
   SignalingError: class extends Error {},
@@ -198,7 +210,7 @@ describe('createPeerConnection', () => {
 
   it('after connect resolves, signalingConnected is true and WebRTCService created', () => {
     expect(mockStore.state.signalingConnected).toBe(true);
-    expect(mockSetWebrtcRef).toHaveBeenCalled();
+    // createFreshRtcService sets up the service and captures its connection state handler
     expect(captured.rtcStateChange).toBeTypeOf('function');
   });
 
@@ -329,7 +341,12 @@ describe('createPeerConnection', () => {
   // ── WebRTC state changes ────────────────────────────────────────────
 
   it('handleConnectionStateChange — connected', () => {
-    mockSession.phase = 'connecting';
+    // Align serviceGeneration: trigger createFreshRtcService via connection_accepted
+    mockSession.phase = 'requesting';
+    mockStore.state.connectingTo = 'REMOTE-CODE';
+    mockRtcConnect.mockClear();
+    captured.signalHandler!({ type: 'connection_accepted', from: 'REMOTE-CODE', data: {} });
+    // Now serviceGeneration === mockSession.generation, and phase is 'connecting'
     mockStore.state.peers = [{ peerCode: 'REMOTE-CODE' }];
     mockSetWebrtcRef.mockClear();
     captured.rtcStateChange!('connected');
@@ -339,6 +356,7 @@ describe('createPeerConnection', () => {
   });
 
   it('handleConnectionStateChange — disconnected resets via resetSession', () => {
+    // serviceGeneration still aligned from previous test
     captured.rtcStateChange!('disconnected');
     expect(mockStore.state.isConnected).toBe(false);
     expect(mockSession.phase).toBe('idle');
@@ -403,22 +421,47 @@ describe('createPeerConnection', () => {
 
   it('handleReceiveProgress — completed', () => {
     vi.useFakeTimers();
+    // Align generation: create fresh service so serviceGeneration matches
+    mockSession.phase = 'requesting';
+    mockStore.state.connectingTo = 'PROG-PEER';
+    captured.signalHandler!({ type: 'connection_accepted', from: 'PROG-PEER', data: {} });
     mockShowToast.mockClear();
     captured.receiveProgress!({ status: 'completed', filename: 'a.txt' });
     expect(mockShowToast).toHaveBeenCalled();
-    vi.advanceTimersByTime(2100);
+    // RU4: 3s timeout in v3 port
+    vi.advanceTimersByTime(3100);
     expect(mockStore.state.transferProgress).toBeNull();
     vi.useRealTimers();
   });
 
   it('handleReceiveProgress — canceled', () => {
+    vi.useFakeTimers();
+    // Reset transferTerminal via disconnect (the only path that clears it)
+    mockSession.phase = 'connected';
+    const disconnectFn = captured.discoveryArgs![1];
+    disconnectFn();
+    // Align generation
+    mockSession.phase = 'requesting';
+    mockStore.state.connectingTo = 'CANC-PEER';
+    captured.signalHandler!({ type: 'connection_accepted', from: 'CANC-PEER', data: {} });
     mockShowToast.mockClear();
     captured.receiveProgress!({ status: 'canceled_by_sender' });
-    expect(mockStore.state.transferProgress).toBeNull();
     expect(mockShowToast).toHaveBeenCalled();
+    // v3 uses setTimeout for canceled too
+    vi.advanceTimersByTime(2100);
+    expect(mockStore.state.transferProgress).toBeNull();
+    vi.useRealTimers();
   });
 
   it('handleReceiveProgress — error', () => {
+    // Reset transferTerminal via disconnect (the only path that clears it)
+    mockSession.phase = 'connected';
+    const disconnectFn = captured.discoveryArgs![1];
+    disconnectFn();
+    // Align generation
+    mockSession.phase = 'requesting';
+    mockStore.state.connectingTo = 'ERR-PEER';
+    captured.signalHandler!({ type: 'connection_accepted', from: 'ERR-PEER', data: {} });
     mockShowToast.mockClear();
     captured.receiveProgress!({ status: 'error' });
     expect(mockStore.state.transferProgress).toBeNull();
@@ -447,6 +490,8 @@ describe('createPeerConnection', () => {
   });
 
   it('disconnect resets state and calls showToast', () => {
+    // Phase must be non-idle for disconnect to proceed (idle guard)
+    mockSession.phase = 'connected';
     mockStore.state.isConnected = true;
     mockShowToast.mockClear();
     mockRtcDisconnect.mockClear();
@@ -493,6 +538,8 @@ describe('createPeerConnection', () => {
   // ── Branch coverage: uncovered paths ─────────────────────────────────
 
   it('reject button click disconnects and shows peer-rejected toast', () => {
+    // Phase must be non-idle for disconnect to proceed (idle guard)
+    mockSession.phase = 'connected';
     mockShowToast.mockClear();
     mockRtcDisconnect.mockClear();
     // Find the Reject button in the container DOM

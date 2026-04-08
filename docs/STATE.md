@@ -6,11 +6,21 @@
 
 ## Latest Release
 
-- **Tag:** localbolt-v1.0.36-consumer-btr1-p2
-- **Commit:** e75271a
+- **Tag:** localbolt-v1.0.38-impl1-multi-transport
+- **Commit:** a6b88c2
 - **Branch:** main
-- **Date:** 2026-03-11
-- **Tests:** 324 pass
+- **Date:** 2026-04-08
+- **Tests:** 329 pass
+
+## Transport Architecture
+
+| Transport | Class | Origin Requirement | Fallback |
+|-----------|-------|--------------------|----------|
+| Direct WS | BrowserAppTransport | HTTP / localhost | — |
+| Secure Direct | WtDataTransport | HTTPS (WebTransport + cert-hash) | WebRTC |
+| WebRTC | WebRTCService (via createFreshRtcService) | Any | — |
+
+Selection order: Direct WS > Secure Direct > WebRTC fallback.
 
 ## Dependencies
 

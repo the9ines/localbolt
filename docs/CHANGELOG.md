@@ -4,6 +4,56 @@ All notable changes to this project are documented here. Newest first.
 
 ---
 
+## localbolt-v1.0.38-impl1-multi-transport — 2026-04-08
+
+**Commit:** a6b88c2
+
+Port v3 multi-transport peer-connection into canonical localbolt app (IMPL-1).
+Replaces the single WebRTC-only connection path with a three-tier transport
+selection: BrowserAppTransport (direct WS for HTTP/localhost origins),
+WtDataTransport (WebTransport with cert-hash pinning for HTTPS origins), and
+WebRTC as the universal fallback. WtDataTransport falls through to WebRTC on
+connect failure.
+
+**Key changes:**
+
+- **createFreshRtcService factory** — one-shot WebRTCService lifecycle: old
+  service handlers are fully detached before creating a new instance, preventing
+  double-callback races. Captures session generation for stale callback rejection.
+- **BrowserAppTransport** — direct WS transport for desktop-app peers on HTTP/LAN
+  origins. Wired in both connection_accepted (initiator) and acceptRequest
+  (responder) paths with full generation guarding.
+- **WtDataTransport** — secure direct transport via WebTransport with cert-hash
+  pinning for HTTPS origins. Falls back to WebRTC on connect failure. Re-entrant
+  onDisconnect loop prevented by clearing refs before disconnect.
+- **HTTPS-aware signaling** — local ws:// signaling disabled from HTTPS origins
+  (mixed content policy). `VITE_SIGNAL_URL` is now the cloud URL;
+  `VITE_LOCAL_SIGNAL_URL` is the local override.
+- **sessionStorage peer code** — peer code persisted in sessionStorage to prevent
+  phantom device entries on page refresh (DP-3b).
+- **transferTerminal guard** — boolean flag prevents late progress callbacks from
+  overwriting terminal transfer state (completed/canceled/error).
+- **connectingPhase tracking** — new store field distinguishes "requesting" (waiting
+  for peer acceptance) from "establishing" (transport handshake in progress), with
+  a 10s slow-connection timer.
+- **Duplicate request dedup** — connection_request from the same peer (arrives via
+  both local + cloud signaling) is ignored instead of auto-declined.
+- **RU improvements** — RU2 (connectingPhase UX), RU3 (timeout + error detail
+  messaging), RU4 (3s completion visibility), RU5 (disconnect/cancel guidance).
+- **Idle guard on disconnect** — `disconnect()` is now idempotent; skips if already idle.
+- **markPeerVerified routing** — dispatches to directTransportRef, wtTransportRef,
+  or rtcServiceRef depending on active transport.
+- **Tests updated** — CBTR-2 tests adapted for 5 btrEnabled occurrences (was 1);
+  peer-connection tests updated with serviceGeneration alignment, transferTerminal
+  lifecycle, and idle-guard setup. 329 tests pass.
+
+**Files changed:**
+- web/src/components/peer-connection.ts (+488 -59)
+- web/src/components/__tests__/peer-connection.test.ts (+55 lines net)
+- web/src/components/__tests__/cbtr2-btr-compatibility.test.ts (+21 lines net)
+
+---
+
 ## localbolt-v1.0.36-consumer-btr1-p2 — 2026-03-11
 
 **Commit:** e75271a

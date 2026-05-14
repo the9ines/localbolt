@@ -12,6 +12,14 @@
 - **Date:** 2026-04-08
 - **Tests:** 329 pass
 
+## Product Role
+
+`localbolt` is the lightweight self-hosted web version. `localbolt-v3` owns the
+production web app at localbolt.app. `localbolt-app` owns native/mobile shells.
+This repo should stay thin and self-hostable while consuming shared ecosystem
+packages and contracts instead of forking protocol, transport security, or
+session-state authority.
+
 ## Transport Architecture
 
 | Transport | Class | Origin Requirement | Fallback |

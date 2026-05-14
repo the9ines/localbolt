@@ -107,15 +107,15 @@ LocalBolt is part of the [Bolt Protocol](https://github.com/the9ines/bolt-protoc
 | Protocol spec | [bolt-protocol](https://github.com/the9ines/bolt-protocol) |
 | SDK dependency | [bolt-core-sdk](https://github.com/the9ines/bolt-core-sdk) |
 | Bundles (subtree) | [bolt-rendezvous](https://github.com/the9ines/bolt-rendezvous) |
-| Native app | [localbolt-app](https://github.com/the9ines/localbolt-app) |
-| Web app | [localbolt-v3](https://github.com/the9ines/localbolt-v3) |
+| Native/mobile app shells | [localbolt-app](https://github.com/the9ines/localbolt-app) |
+| Production web app | [localbolt-v3](https://github.com/the9ines/localbolt-v3) |
 
 This is an **open-source** project. Free to use, self-host, and modify.
 
 ## Related
 
 - **[localbolt.app](https://localbolt.app)** — use it in the browser, no install
-- **[LocalBolt App](https://github.com/the9ines/localbolt-app)** — native desktop app with embedded signal server
+- **[LocalBolt App](https://github.com/the9ines/localbolt-app)** — native/mobile shells over the shared Rust core
 
 ## License
 

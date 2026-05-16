@@ -16,7 +16,7 @@
 
 - End-to-end encryption (NaCl box, per-chunk random nonce, SAS verification)
 - WebRTC P2P file transfer (16KB chunks, backpressure, pause/resume/cancel)
-- Dual signaling (LAN on port 3001 + cloud at bolt-rendezvous.fly.dev)
+- LAN-only signaling and discovery. Hosted rendezvous may support same-network browser discovery, but LocalBolt does not provide cross-network discovery or internet transfer.
 - IP-based peer discovery with CGNAT/Tailscale support
 - Drag-and-drop file upload, progress tracking with speed/ETA
 - Security hardening (CSP, XSS prevention, peer validation, relay blocking)

@@ -13,7 +13,7 @@ Encrypted peer-to-peer file transfer. Files go directly between devices, never s
 - **No accounts** - no sign-up, no cloud, no trace
 - **No file size limits** - limited only by your device storage
 - **Cross-platform** - works in any modern browser
-- **Dual signaling** - discovers devices on your LAN and across the internet
+- **LAN discovery** - discovers nearby devices on your local network
 - **Works offline** - self-host on your local network with no internet required
 
 ## Quick Start
@@ -38,20 +38,20 @@ start.bat
 
 ## How It Works
 
-1. **Open** LocalBolt on two devices, same network or different networks
+1. **Open** LocalBolt on two devices on the same local network
 2. **Select** the other device from the device list (it appears automatically)
 3. **Transfer** files by drag-and-drop, encrypted, peer-to-peer, no size limits
 
 The signaling server only helps devices find each other. Once connected, all data flows directly between devices over an encrypted WebRTC channel. The signaling server never sees your files.
 
-### Dual Signaling
+### Local Discovery
 
-LocalBolt connects to both a local signaling server (your LAN) and the cloud signaling server (localbolt.app) simultaneously. This means:
+LocalBolt is LAN-only. Its signaling server helps nearby devices on your local
+network find each other. It does not provide cross-internet discovery or
+remote-network transfer; that belongs to ByteBolt.
 
-- **Same network**: Devices on your LAN discover each other instantly
-- **Different networks**: Devices across the internet discover each other via the cloud server
+- **Same network**: Devices on your LAN discover each other automatically
 - **Offline mode**: If there's no internet, LAN discovery still works
-- **Graceful degradation**: If either server is unavailable, the other keeps working
 
 ## Architecture
 
@@ -95,7 +95,7 @@ npm run dev
 | Encryption | TweetNaCl (NaCl box: Curve25519 + XSalsa20-Poly1305) |
 | Transfer | WebRTC data channels, 16KB chunks |
 | Signaling | Rust (Tokio + Tungstenite WebSocket) |
-| Discovery | Dual signaling, LAN + cloud, IP-based peer grouping |
+| Discovery | LAN/local-network signaling, IP-based peer grouping |
 
 ## Ecosystem
 

@@ -14,27 +14,13 @@ fi
 
 EXPECTED=$(tr -d '[:space:]' < "$VERSION_FILE")
 
-JSON=$(npm ls "$PKG" --json --prefix web 2>/dev/null || true)
+PATHS=$(npm ls "$PKG" --parseable --prefix web 2>/dev/null || true)
+COUNT=$(printf '%s\n' "$PATHS" | sed '/^$/d' | sort -u | wc -l | tr -d '[:space:]')
 
-# Count resolved instances and extract versions
-VERSIONS=$(node -e "
-  const data = JSON.parse(process.argv[1]);
-  const versions = [];
-  function walk(obj) {
-    if (!obj || typeof obj !== 'object') return;
-    if (obj.dependencies) {
-      for (const [name, dep] of Object.entries(obj.dependencies)) {
-        if (name === '$PKG' && dep.version) versions.push(dep.version);
-        walk(dep);
-      }
-    }
-  }
-  walk(data);
-  console.log(JSON.stringify(versions));
-" "$JSON")
-
-COUNT=$(node -e "console.log(JSON.parse(process.argv[1]).length)" "$VERSIONS")
-INSTALLED=$(node -e "const v = JSON.parse(process.argv[1]); if (v.length > 0) console.log(v[0]); else console.log('NONE')" "$VERSIONS")
+INSTALLED="NONE"
+if [ "$COUNT" -gt 0 ]; then
+  INSTALLED=$(node -e "console.log(require('./web/node_modules/$PKG/package.json').version)")
+fi
 
 EXIT=0
 
@@ -43,7 +29,7 @@ if [ "$COUNT" -eq 0 ]; then
   EXIT=1
 elif [ "$COUNT" -gt 1 ]; then
   echo "FAIL: $COUNT instances of $PKG found (expected 1)"
-  echo "      Versions: $VERSIONS"
+  printf '%s\n' "$PATHS"
   EXIT=1
 else
   echo "PASS: single instance of $PKG installed"

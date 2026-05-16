@@ -34,8 +34,8 @@ Selection order: Direct WS > Secure Direct > WebRTC fallback.
 
 | Package | Version | Registry |
 |---------|---------|----------|
-| @the9ines/bolt-core | 0.5.1 | npmjs.org |
-| @the9ines/bolt-transport-web | 0.6.4 | npmjs.org |
+| @the9ines/bolt-core | 0.6.4 | npmjs.org |
+| @the9ines/bolt-transport-web | 0.7.14 | npmjs.org |
 | @the9ines/localbolt-core | 0.1.2 | npmjs.org |
 | tweetnacl | ^1.0.3 |
 | tweetnacl-util | ^0.15.1 |
@@ -63,10 +63,10 @@ Selection order: Direct WS > Secure Direct > WebRTC fallback.
 
 | Metric | Threshold |
 |--------|-----------|
-| Lines | 80% |
-| Functions | 80% |
-| Branches | 70% |
-| Statements | 80% |
+| Lines | 70% |
+| Functions | 58% |
+| Branches | 51% |
+| Statements | 66% |
 
 ## Stack
 

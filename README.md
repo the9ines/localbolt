@@ -48,7 +48,7 @@ The signaling server only helps devices find each other. Once connected, all dat
 
 LocalBolt is LAN-only. Its signaling server helps nearby devices on your local
 network find each other. It does not provide cross-internet discovery or
-remote-network transfer; that belongs to ByteBolt.
+remote-network transfer.
 
 - **Same network**: Devices on your LAN discover each other automatically
 - **Offline mode**: If there's no internet, LAN discovery still works

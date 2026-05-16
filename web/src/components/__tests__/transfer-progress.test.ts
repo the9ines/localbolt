@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatSpeed, formatTime, formatSize } from '@the9ines/bolt-transport-web';
+import { formatSpeed, formatTime, formatSize } from '@the9ines/localbolt-browser';
 
 describe('formatSpeed (SDK canonical)', () => {
   it('formats zero', () => {

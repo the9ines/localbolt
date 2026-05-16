@@ -1,5 +1,5 @@
 import './index.css';
-import { initProtocolWasm } from '@the9ines/bolt-transport-web';
+import { initProtocolWasm } from '@the9ines/localbolt-browser';
 import { createApp } from './app';
 
 // BR5: Initialize Rust/WASM protocol authority from embedded artifact.

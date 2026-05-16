@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Phase 4H — Ensures exactly one instance of @the9ines/bolt-transport-web is installed
-# and its version matches .transport-web-version.
+# Phase 4H — Ensures exactly one instance of @the9ines/localbolt-browser is installed
+# and its version matches .localbolt-browser-version.
 
-VERSION_FILE=".transport-web-version"
-PKG="@the9ines/bolt-transport-web"
+VERSION_FILE=".localbolt-browser-version"
+PKG="@the9ines/localbolt-browser"
 
 if [ ! -f "$VERSION_FILE" ]; then
   echo "FAIL: $VERSION_FILE not found"

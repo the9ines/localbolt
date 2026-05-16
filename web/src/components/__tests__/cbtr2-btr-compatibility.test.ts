@@ -8,7 +8,7 @@ import { describe, it, expect } from 'vitest';
  * restores baseline behavior.
  *
  * These tests exercise the consumer config layer via static source analysis,
- * not the SDK internals (covered by 344 tests in bolt-transport-web).
+ * not the SDK internals (covered by 344 tests in localbolt-browser).
  */
 
 const loadSource = async (): Promise<string> => {

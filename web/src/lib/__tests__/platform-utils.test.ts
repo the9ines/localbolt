@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { isPrivateIP, getLocalOnlyRTCConfig, getPlatformICEServers, getMaxChunkSize, detectDevice, getPlatformDeviceName as getDeviceName, isLocalCandidate } from '@the9ines/bolt-transport-web';
+import { isPrivateIP, getLocalOnlyRTCConfig, getPlatformICEServers, getMaxChunkSize, detectDevice, getPlatformDeviceName as getDeviceName, isLocalCandidate } from '@the9ines/localbolt-browser';
 
 describe('isPrivateIP', () => {
   it('detects 10.x.x.x as private', () => {
@@ -69,11 +69,10 @@ describe('getLocalOnlyRTCConfig', () => {
     expect(config.rtcpMuxPolicy).toBe('require');
   });
 
-  it('includes STUN servers', () => {
+  it('does not include STUN servers', () => {
     const config = getLocalOnlyRTCConfig();
-    expect(config.iceServers!.length).toBeGreaterThan(0);
     const urls = config.iceServers!.flatMap(s => Array.isArray(s.urls) ? s.urls : [s.urls]);
-    expect(urls.some(u => u.startsWith('stun:'))).toBe(true);
+    expect(urls.some(u => u.startsWith('stun:'))).toBe(false);
   });
 
   it('does not include TURN servers', () => {
@@ -89,10 +88,10 @@ describe('getLocalOnlyRTCConfig', () => {
 });
 
 describe('getPlatformICEServers', () => {
-  it('returns an array of ICE servers', () => {
+  it('returns an empty ICE server list for LAN-only host candidates', () => {
     const servers = getPlatformICEServers();
     expect(Array.isArray(servers)).toBe(true);
-    expect(servers.length).toBeGreaterThan(0);
+    expect(servers).toHaveLength(0);
   });
 
   it('every server has a urls property', () => {
@@ -225,9 +224,9 @@ describe('isLocalCandidate', () => {
     expect(isLocalCandidate(candidate)).toBe(true);
   });
 
-  it('accepts srflx candidates', () => {
+  it('rejects srflx candidates', () => {
     const candidate = { candidate: 'candidate:1 1 udp 1686052607 1.2.3.4 54321 typ srflx raddr 192.168.1.1 rport 54321', type: 'srflx' } as RTCIceCandidate;
-    expect(isLocalCandidate(candidate)).toBe(true);
+    expect(isLocalCandidate(candidate)).toBe(false);
   });
 
   it('rejects relay candidates', () => {

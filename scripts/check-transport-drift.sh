@@ -2,14 +2,14 @@
 set -euo pipefail
 
 # Phase 4G drift guard — prevents reintroduction of duplicated transport files
-# and deep imports from @the9ines/bolt-transport-web.
+# and deep imports from @the9ines/localbolt-browser.
 
 SRC_DIR="${1:-web/src}"
 EXIT=0
 
 # 1) Check for deep imports
 echo "--- Deep import check ---"
-if grep -rn '@the9ines/bolt-transport-web/' "$SRC_DIR" --include='*.ts' --include='*.tsx'; then
+if grep -rn '@the9ines/localbolt-browser/' "$SRC_DIR" --include='*.ts' --include='*.tsx'; then
   echo "FAIL: deep imports detected (use barrel import only)"
   EXIT=1
 else

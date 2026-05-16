@@ -30,8 +30,8 @@ vi.mock('@the9ines/localbolt-core', () => ({
   isTransferAllowed: (state: string, connected: boolean) => connected && (state === 'verified' || state === 'legacy'),
 }));
 
-// ── Mock @the9ines/bolt-transport-web ───────────────────────────────────
-vi.mock('@the9ines/bolt-transport-web', () => {
+// ── Mock @the9ines/localbolt-browser ───────────────────────────────────
+vi.mock('@the9ines/localbolt-browser', () => {
   const state: Record<string, unknown> = {
     signalingConnected: false,
     isConnected: false,

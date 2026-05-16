@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { AppStore } from '@the9ines/bolt-transport-web';
+import { AppStore } from '@the9ines/localbolt-browser';
 
 describe('AppStore', () => {
   let store: InstanceType<typeof AppStore>;

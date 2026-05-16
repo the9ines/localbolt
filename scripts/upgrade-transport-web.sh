@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Phase 4H — Upgrade @the9ines/bolt-transport-web to a new version.
+# Phase 4H — Upgrade @the9ines/localbolt-browser to a new version.
 # Usage: bash scripts/upgrade-transport-web.sh <version>
 # Example: bash scripts/upgrade-transport-web.sh 0.2.0
 #
@@ -9,8 +9,8 @@ set -euo pipefail
 
 REPO="localbolt"
 PKG_JSON="web/package.json"
-VERSION_FILE=".transport-web-version"
-PKG="@the9ines/bolt-transport-web"
+VERSION_FILE=".localbolt-browser-version"
+PKG="@the9ines/localbolt-browser"
 
 if [ $# -ne 1 ]; then
   echo "Usage: $0 <version>"

@@ -109,8 +109,8 @@ vi.mock('@the9ines/localbolt-core', () => ({
   },
 }));
 
-// ── Mock @the9ines/bolt-transport-web ───────────────────────────────────
-vi.mock('@the9ines/bolt-transport-web', () => ({
+// ── Mock @the9ines/localbolt-browser ───────────────────────────────────
+vi.mock('@the9ines/localbolt-browser', () => ({
   store: mockStore,
   showToast: mockShowToast,
   setWebrtcRef: mockSetWebrtcRef,

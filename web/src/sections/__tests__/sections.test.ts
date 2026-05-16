@@ -1,11 +1,11 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi } from 'vitest';
 
-// ── Mock @the9ines/bolt-transport-web ───────────────────────────────────
+// ── Mock @the9ines/localbolt-browser ───────────────────────────────────
 const subscribers: Array<() => void> = [];
 const storeState: Record<string, unknown> = { signalingConnected: false };
 
-vi.mock('@the9ines/bolt-transport-web', () => {
+vi.mock('@the9ines/localbolt-browser', () => {
   const iconFn = (cls?: string) => `<svg class="${cls ?? ''}"></svg>`;
   return {
     store: {

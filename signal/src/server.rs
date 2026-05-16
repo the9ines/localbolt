@@ -170,6 +170,8 @@ pub async fn handle_connection(
     let forwarded_for = Arc::new(std::sync::Mutex::new(None::<String>));
     let forwarded_for_cb = forwarded_for.clone();
 
+    // tungstenite requires this callback signature; the large error type is owned upstream.
+    #[allow(clippy::result_large_err)]
     let callback = move |req: &Request, resp: Response| -> Result<Response, ErrorResponse> {
         // Extract X-Forwarded-For if present (reverse proxy scenario).
         if let Some(xff) = req.headers().get("x-forwarded-for") {

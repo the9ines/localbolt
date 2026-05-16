@@ -90,11 +90,11 @@ jobs:
         with:
           repository: ${{ env.UPSTREAM_REPO }}
           ref: ${{ env.UPSTREAM_TAG }}
-          path: ../canonical-rendezvous
+          path: canonical-rendezvous
           fetch-depth: 1
 
       - name: Sanity check canonical
-        run: test -f ../canonical-rendezvous/Cargo.toml
+        run: test -f canonical-rendezvous/Cargo.toml
 
       - name: Verify signal subtree
-        run: bash scripts/verify_signal_subtree.sh
+        run: CANONICAL_DIR="$GITHUB_WORKSPACE/canonical-rendezvous" bash scripts/verify_signal_subtree.sh

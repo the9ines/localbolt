@@ -16,7 +16,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 PIN_FILE="$REPO_ROOT/SIGNAL_SUBTREE_PIN"
-CANONICAL_DIR="$REPO_ROOT/../canonical-rendezvous"
+CANONICAL_DIR="${CANONICAL_DIR:-$REPO_ROOT/../canonical-rendezvous}"
 
 # ── 1. Read pin ──────────────────────────────────────────────────
 if [[ ! -f "$PIN_FILE" ]]; then
@@ -38,7 +38,7 @@ echo "Pin: $UPSTREAM_REPO @ $UPSTREAM_TAG"
 if [[ ! -d "$CANONICAL_DIR" ]]; then
     echo "FAIL: canonical checkout not found at $CANONICAL_DIR"
     echo "  Local: git -C ../bolt-rendezvous worktree add ../canonical-rendezvous $UPSTREAM_TAG"
-    echo "  CI:    actions/checkout with repository=$UPSTREAM_REPO ref=$UPSTREAM_TAG path=../canonical-rendezvous"
+    echo "  CI:    actions/checkout with repository=$UPSTREAM_REPO ref=$UPSTREAM_TAG path=canonical-rendezvous and CANONICAL_DIR set"
     exit 1
 fi
 

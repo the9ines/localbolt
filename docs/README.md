@@ -1,12 +1,9 @@
-# localbolt — Documentation
+# LocalBolt Self-Hosted Docs
 
-## Doc Routing
+Public docs for the self-hosted LocalBolt web app.
 
-- **Canonical routing table:** [`bolt-ecosystem/os/rules/doc-routing.md`](https://github.com/the9ines/bolt-ecosystem/blob/main/os/rules/doc-routing.md)
-- **Canonical audit tracker:** [`bolt-ecosystem/docs/AUDIT_TRACKER.md`](https://github.com/the9ines/bolt-ecosystem/blob/main/docs/AUDIT_TRACKER.md)
+| File | Purpose |
+|------|---------|
+| `CHANGELOG.md` | Public self-hosted app changelog |
 
-## Update Rules
-
-- Only update this repo's `docs/CHANGELOG.md` (append-only). `docs/STATE.md` is retired — current state is generated at the ecosystem root (`os/bin/status.sh` → `os/DASHBOARD.md`).
-- **Never edit `signal/`** — it is a read-only subtree vendored from bolt-rendezvous. All changes must go upstream to bolt-rendezvous first.
-- All other governance docs are routed via `os/rules/doc-routing.md` in the ecosystem repo.
+Internal governance and audit trackers are not part of the public app docs.

@@ -3,6 +3,10 @@
 //! These tests verify that the rendezvous server's permissive peer code
 //! validation and bolt-core's strict canonical validation agree where
 //! they should and diverge where expected.
+//!
+//! Key difference: rendezvous is permissive (any alphanumeric, max 16 chars),
+//! bolt-core is strict (unambiguous alphabet, 6 or 8 chars only).
+//! Both strip hyphens before validation.
 
 use bolt_core::peer_code::is_valid_peer_code;
 use bolt_rendezvous::server::validate_peer_code;
@@ -16,12 +20,19 @@ fn both_reject_empty() {
 #[test]
 fn canonical_codes_accepted_by_both() {
     // 6-char code using only unambiguous alphabet chars.
-    assert!(validate_peer_code("ABCDEF").is_ok());
+    assert_eq!(validate_peer_code("ABCDEF").unwrap(), "ABCDEF");
     assert!(is_valid_peer_code("ABCDEF"));
 
-    // 8-char code (no dash — server rejects hyphens).
-    assert!(validate_peer_code("ABCDEFGH").is_ok());
+    // 8-char code without dash.
+    assert_eq!(validate_peer_code("ABCDEFGH").unwrap(), "ABCDEFGH");
     assert!(is_valid_peer_code("ABCDEFGH"));
+}
+
+#[test]
+fn hyphenated_codes_accepted_by_both() {
+    // 8-char code with dash — both strip hyphens before validation.
+    assert_eq!(validate_peer_code("ABCD-EFGH").unwrap(), "ABCDEFGH");
+    assert!(is_valid_peer_code("ABCD-EFGH"));
 }
 
 #[test]

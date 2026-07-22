@@ -19,8 +19,8 @@ bolt-core-sdk must be checked out as a **sibling** of bolt-rendezvous:
     rust/bolt-core/         ← path dependency target
 ```
 
-In CI, this is achieved by checking out bolt-core-sdk to
-`$GITHUB_WORKSPACE/../bolt-core-sdk`.
+In CI, this is achieved by checking out bolt-rendezvous and bolt-core-sdk
+as sibling directories under `$GITHUB_WORKSPACE`.
 
 ## Running locally
 

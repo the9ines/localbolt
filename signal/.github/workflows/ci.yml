@@ -9,8 +9,13 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: bolt-rendezvous
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: bolt-rendezvous
 
       - name: Install stable toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -31,7 +36,7 @@ jobs:
         with:
           repository: the9ines/bolt-core-sdk
           ref: 1694aa62f577eda9fd748017c43bc960bc4462ff
-          path: ../bolt-core-sdk
+          path: bolt-core-sdk
           fetch-depth: 1
 
       - name: Verify sibling layout
